@@ -1,0 +1,347 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{diplomstyle}[2025/11/10 Пакет с настройками для дипломной работы]
+
+% ======================= ПОДКЛЮЧЕНИЕ ПАКЕТОВ ==============================
+%% Библиография
+\RequirePackage[
+    backend=biber,
+    style=gost-numeric,
+    sorting=nty,
+    parentracker=true,
+    hyperref=false,
+    bibencoding=utf8,
+    language=auto,
+    autolang=other,
+    defernumbers=true
+]{biblatex}
+
+%% Настройки страниц
+\RequirePackage{geometry}
+
+%% Программирование
+\RequirePackage{listings}
+
+%% Настройки текста/языка
+\RequirePackage{iftex}
+\RequirePackage{cmap}
+\RequirePackage[T2A]{fontenc}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[english,russian]{babel}
+\RequirePackage{indentfirst}
+\RequirePackage{setspace}
+\RequirePackage{ulem}
+\RequirePackage{enumitem}
+\RequirePackage{fancyhdr}
+\RequirePackage{abraces}
+\RequirePackage{multicol}
+\RequirePackage{multirow}
+
+%% Объекты
+\RequirePackage{graphicx}
+\RequirePackage{placeins}
+\RequirePackage{wrapfig}
+\RequirePackage{float}
+\RequirePackage[tableposition=top]{caption}
+\RequirePackage{subcaption}
+\RequirePackage{tabularx}
+\RequirePackage{tabulary}
+\RequirePackage{booktabs}
+\RequirePackage{tikz}
+\RequirePackage{tcolorbox}
+
+%% Математика
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{amsfonts}
+\RequirePackage{mathtools}
+\RequirePackage{icomma}
+
+%% Ссылки
+\RequirePackage{xurl}
+\RequirePackage[colorlinks,breaklinks]{hyperref}
+\RequirePackage[russian,capitalize]{cleveref}
+
+%% Разное
+\RequirePackage[table]{xcolor}
+\RequirePackage{siunitx}
+\RequirePackage{pgfplots}
+\RequirePackage{svg}
+
+% ======================== НАСТРОЙКИ ПАКЕТОВ ===============================
+
+%% Настройка размеров страницы
+\geometry{
+    a4paper,
+    paperheight=297mm,
+    paperwidth=210mm,
+    left=2cm,    % уменьшено с 3cm
+    right=1cm,   % уменьшено с 1.5cm
+    top=1.5cm,     % уменьшено с 2cm
+    bottom=1.5cm,  % уменьшено с 2cm
+    footskip=0.8cm % добавлено для корректного отступа снизу
+}
+
+%% Настройка ссылок
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=black,
+    citecolor=black,
+    pdfencoding=auto,
+    psdextra=true
+}
+
+%% Настройка межстрочного интервала и отступов
+\setlength{\parindent}{1.25em}      % уменьшено с 1.5em
+\setlength{\parskip}{0.1em}         % уменьшено с 0em
+\linespread{1.0}
+% \onehalfspacing
+
+%% Настройки подписей рисунков
+\captionsetup[figure]{
+    labelsep=period,
+    name={Рис.},
+    justification=centering,
+    font=small,
+    labelfont=bf,
+    skip=4pt,           % уменьшен отступ
+    belowskip=2pt       % отступ после подписи
+}
+
+%% Настройки подписей таблиц
+\captionsetup[table]{
+    labelsep=period,
+    name={Таблица},
+    justification=centering,
+    font=small,
+    labelfont=bf,
+    skip=4pt,           % уменьшен отступ
+    belowskip=2pt       % отступ после подписи
+}
+
+\renewcommand{\thetable}{\arabic{table}}
+
+%% Настройки cleveref
+\crefname{figure}{рис.}{рис.}
+\Crefname{figure}{Рис.}{Рис.}
+\crefname{table}{табл.}{табл.}
+\Crefname{table}{Табл.}{Табл.}
+\crefname{appsection}{прил.}{прил.}
+\Crefname{appsection}{Прил.}{Прил.}
+\crefname{listing}{лист.}{лист.}
+\Crefname{listing}{Лист.}{Лист.}
+\crefname{equation}{}{(}
+\crefformat{equation}{(#2#1#3)}
+\crefrangelabelformat{equation}{(#3#1#4--#5#2#6)}
+\crefmultiformat{equation}{(#2#1#3)}{ и~(#2#1#3)}{, (#2#1#3)}{ и~(#2#1#3)}
+
+%% Настройки listings
+\definecolor{darkgreen}{rgb}{0.0, 0.6, 0.0}
+\definecolor{pycharm-keyword}{RGB}{200, 0, 110}
+\definecolor{pycharm-string}{RGB}{42, 0, 255}
+\definecolor{pycharm-comment}{RGB}{128, 128, 128}
+\definecolor{pycharm-number}{RGB}{0, 0, 255}
+\definecolor{pycharm-background}{RGB}{255, 255, 255}
+\definecolor{pycharm-frame}{RGB}{214, 214, 214}
+\definecolor{pycharm-identifier}{RGB}{0, 0, 0}
+
+\lstset{
+    showtabs = false,
+    basicstyle = \small\ttfamily,
+    breaklines = true,
+    breakatwhitespace = false,
+    prebreak = \mbox{\textcolor{red}{$\hookleftarrow$}},
+    postbreak = \mbox{\textcolor{red}{$\hookrightarrow$}},
+    breakindent = 5pt,
+    breakautoindent = true,
+    numbers = left,
+    numberstyle = \footnotesize\color{gray},
+    numbersep = 5pt,
+    stepnumber = 1,
+    firstnumber = 1,
+    frame = single,
+    xleftmargin = 3pt,
+    xrightmargin = 3pt,
+    rulecolor = \color{lightgray},
+    backgroundcolor = \color{white},
+    keywordstyle = \color{blue}\bfseries,
+    commentstyle = \color{darkgreen}\itshape,
+    stringstyle = \color{red},
+    morecomment = [s][\color{purple}]{/**}{*/},
+    morecomment = [s][commentstyle]{/*}{*/},
+    morecomment = [l][commentstyle]{//},
+    columns = fullflexible,
+    showstringspaces = false,
+    keepspaces = true,
+    tabsize = 4,
+    captionpos = top,
+    inputencoding = utf8x,
+    extendedchars = true,
+    literate =
+    {а}{{\cyra}}1 {б}{{\cyrb}}1 {в}{{\cyrv}}1 {г}{{\cyrg}}1 {д}{{\cyrd}}1
+    {е}{{\cyre}}1 {ё}{{\cyryo}}1 {ж}{{\cyrzh}}1 {з}{{\cyrz}}1 {и}{{\cyri}}1
+    {й}{{\cyrishrt}}1 {к}{{\cyrk}}1 {л}{{\cyrl}}1 {м}{{\cyrm}}1 {н}{{\cyrn}}1
+    {о}{{\cyro}}1 {п}{{\cyrp}}1 {р}{{\cyrr}}1 {с}{{\cyrs}}1 {т}{{\cyrt}}1
+    {у}{{\cyru}}1 {ф}{{\cyrf}}1 {х}{{\cyrh}}1 {ц}{{\cyrc}}1 {ч}{{\cyrch}}1
+    {ш}{{\cyrsh}}1 {щ}{{\cyrshch}}1 {ъ}{{\cyrhrdsn}}1 {ы}{{\cyrery}}1
+    {ь}{{\cyrsftsn}}1 {э}{{\cyrerev}}1 {ю}{{\cyryu}}1 {я}{{\cyrya}}1
+    {А}{{\CYRA}}1 {Б}{{\CYRB}}1 {В}{{\CYRV}}1 {Г}{{\CYRG}}1 {Д}{{\CYRD}}1
+    {Е}{{\CYRE}}1 {Ё}{{\CYRYO}}1 {Ж}{{\CYRZH}}1 {З}{{\CYRZ}}1 {И}{{\CYRI}}1
+    {Й}{{\CYRISHRT}}1 {К}{{\CYRK}}1 {Л}{{\CYRL}}1 {М}{{\CYRM}}1 {Н}{{\CYRN}}1
+    {О}{{\CYRO}}1 {П}{{\CYRP}}1 {Р}{{\CYRR}}1 {С}{{\CYRS}}1 {Т}{{\CYRT}}1
+    {У}{{\CYRU}}1 {Ф}{{\CYRF}}1 {Х}{{\CYRH}}1 {Ц}{{\CYRC}}1 {Ч}{{\CYRCH}}1
+    {Ш}{{\CYRSH}}1 {Щ}{{\CYRSHCH}}1 {Ъ}{{\CYRHRDSN}}1 {Ы}{{\CYRERY}}1
+    {Ь}{{\CYRSFTSN}}1 {Э}{{\CYREREV}}1 {Ю}{{\CYRYU}}1 {Я}{{\CYRYA}}1
+    {-}{{-}}1
+}
+
+\DeclareCaptionFormat{listing}{\centering~#1 --- #3}
+\captionsetup[lstlisting]{
+    format=listing, 
+    singlelinecheck=off,
+    font=small,
+    labelfont=bf,
+    skip=4pt,
+    belowskip=2pt
+}
+
+%% Настройка заголовков
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{\z@}%
+    {-2.5ex \@plus -0.8ex \@minus -.2ex}%   уменьшено с -3.5ex
+    {1.8ex \@plus.2ex}%                     уменьшено с 2.3ex
+    {\Large\bfseries\centering\MakeUppercase}}
+\renewcommand{\thesection}{\Roman{section}.}
+
+\renewcommand{\subsection}{\@startsection{subsection}{2}{\z@}%
+    {-2.5ex \@plus -0.8ex \@minus -.2ex}%   уменьшено с -3.25ex
+    {1.2ex \@plus .2ex}%                    уменьшено с 1.5ex
+    {\large\bfseries}}
+\renewcommand{\thesubsection}{\arabic{subsection}.}
+
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{\z@}%
+    {-2.5ex \@plus -0.8ex \@minus -.2ex}%   уменьшено с -3.25ex
+    {1.0ex \@plus .2ex}%                    уменьшено с 1.5ex
+    {\normalsize\bfseries}}
+\renewcommand{\thesubsubsection}{\arabic{subsection}.\arabic{subsubsection}}
+\makeatother
+
+%% Приложения
+\newcounter{appsection}
+\renewcommand{\theappsection}{\arabic{appsection}}
+
+\newcommand{\appendixsection}[1]{
+    \refstepcounter{appsection}
+    \vspace{0.8em} % уменьшено с 1em
+    \noindent{\large\textbf{Приложение \theappsection. #1}}
+    \par\nopagebreak
+    \addcontentsline{toc}{subsection}{Приложение \theappsection. #1}
+    \label{app:#1}
+}
+
+\renewcommand{\thesubtable}{\asbuk{subtable}}
+
+%% Настройка перечислений
+\renewcommand{\thesubfigure}{\asbuk{subfigure}}
+
+\setlist[enumerate,2]{label=\asbuk*)}
+\renewcommand\labelitemi{{\small$\bullet$}}
+
+\makeatletter
+\AddEnumerateCounter{\asbuk}{\russian@alph}{щ}
+\makeatother
+
+%% Настройка содержания
+\renewcommand{\contentsname}{Оглавление}
+
+\RequirePackage{titletoc}
+\makeatletter
+\renewcommand*\l@section{\@dottedtocline{1}{1.2em}{2.8em}} % уменьшены отступы
+\renewcommand*\l@subsection{\@dottedtocline{2}{3.2em}{2.8em}} % уменьшены отступы
+\renewcommand*\l@subsubsection{\@dottedtocline{3}{6.0em}{3.6em}} % уменьшены отступы
+\makeatother
+
+\RequirePackage{tocloft}
+\renewcommand{\cfttoctitlefont}{\hfill\normalsize\bfseries}
+\renewcommand{\cftaftertoctitle}{\hfill}
+\renewcommand{\cftbeforesecskip}{0.3em} % уменьшено с 0.5em
+
+%% Переносы
+\sloppy
+
+%% Математические настройки
+\newcommand*{\hm}[1]{#1\nobreak\discretionary{}
+{\hbox{$\mathsurround=0pt #1$}}{}}
+
+% Настройка отступов вокруг формул
+\abovedisplayskip = 1pt     % уменьшено с 2pt
+\belowdisplayskip = 2pt     % уменьшено с 4pt
+\abovedisplayshortskip = 0pt % уменьшено с 1pt
+\belowdisplayshortskip = 1pt % уменьшено с 3pt
+
+%% Настройки списков
+\setlist[enumerate]{
+    noitemsep,
+    topsep=0.1em,    % уменьшено с 0.2em
+    parsep=0pt,
+    partopsep=0pt,
+    itemsep=0.1em,   % уменьшено с 0.2em
+}
+
+\setlist[itemize]{
+    noitemsep,
+    topsep=0.1em,    % уменьшено с 0.2em
+    parsep=0pt,
+    partopsep=0pt,
+    itemsep=0.1em,   % уменьшено с 0.2em
+}
+
+%% Настройки tcolorbox
+\tcbuselibrary{skins, breakable}
+
+\newtcolorbox{tbox}[2][]{
+    colback=white!98!black,
+    colframe=white!80!black,
+    fonttitle=\bfseries,
+    coltitle=black,
+    title={#2},
+    breakable,
+    standard,
+    before={\addcontentsline{toc}{subsubsection}{#2}},
+    #1
+}
+
+\newtcolorbox{librarybox}{
+    enhanced,
+    colback=gray!10,
+    boxrule=0pt,
+    arc=0pt,
+    outer arc=0pt,
+    left=4pt,       % уменьшено с 6pt
+    right=3pt,      % уменьшено с 4pt
+    top=3pt,        % уменьшено с 4pt
+    bottom=3pt,     % уменьшено с 4pt
+    before skip=8pt, % уменьшено с 12pt
+    after skip=8pt,  % уменьшено с 12pt
+    overlay={
+        \draw[gray!50, line width=3pt] % уменьшено с 4pt
+        (frame.south west) -- (frame.north west);
+        \draw[gray!50, line width=1pt]
+        ([xshift=3pt]frame.south west) -- ([xshift=3pt]frame.north west); % уменьшено с 4pt
+    }
+}
+
+%% Команды для дробей
+\newcommand{\frc}[2]{\raisebox{2pt}{$#1$}\big/\raisebox{-3pt}{$#2$}}
+\newcommand{\tfrc}[2]{\raisebox{2pt}{{\footnotesize $#1$}}/\raisebox{-3pt}{{\footnotesize $#2$}}}
+
+%% Настройки pgfplots
+\pgfplotsset{compat=1.18}
+
+
+% Уменьшение отступов в таблицах
+\setlength{\tabcolsep}{4pt} % уменьшено стандартное значение
+\renewcommand{\arraystretch}{1.1} % оптимальное растяжение строк
+
+\frenchspacing
+\endinput
