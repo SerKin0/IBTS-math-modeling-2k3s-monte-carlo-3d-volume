@@ -1,0 +1,68 @@
+\section{Теоретическая часть}
+
+\subsection{Нахождение теоретического объема тела}
+
+Перед написанием метода Монте-Карло необходимо сначала найти теоретическое значение объема тела. Представляет собой зажатое между двумя однополостными гиперболоидами фигуру. Произведем замену переменных для цилиндрических координат:
+\begin{align} \label{eq:2}
+	\begin{cases}
+		x = r \cos \varphi \\
+		y = r \sin \varphi \\
+		z = z(x, y)
+	\end{cases} \Rightarrow \boxed{r^2 - 1 \leqslant z^2 \leqslant \frac{3}{5}(r^2 + 1)}
+\end{align}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{image/graph_main}
+	\caption{Визуализация функции \cref{eq:main} в трехмерном пространстве (выполнена в Desmos)}
+	\label{fig:1}
+\end{figure}
+
+Необходимо, что выполнялось условие \[r^2 - 1 \leqslant \frac35 (r^2 + 1)\] 
+\[\frac25 r^2 \leqslant \frac85\]
+\begin{equation} \label{eq:3}
+	r^2 \leqslant 4 \to \boxed{0 \leqslant r \leqslant 2}
+\end{equation}
+
+Рассмотрим два случая, когда нижняя граница $z_{\text{min}}(r)$ меняет свое выражение:
+\begin{enumerate}
+	\item При $0 \leqslant r \leqslant 1$: $r^2 - 1 \leqslant 0$, поэтому условие $z^2 \geqslant r^2 - 1$ выполняется всегда. Тогда:
+	\[z_{min}(r) = 0,\ z_{max}(r) = \sqrt{\frac35 (r^2 + 1)}\]
+	\item При $1 \leqslant r \leqslant 2$: $r^2 - 1 \geqslant 0$, тогда:
+	\[z_{min}(r) = \sqrt{r^2 - 1},\ z_{max}(r) = \sqrt{\frac35 (r^2 + 1)}\]
+\end{enumerate}
+
+С учетом симметрии тела относительно плоскости $z=0$, объем в цилиндрических координатах:
+\begin{equation} \label{eq:4}
+	V = 2\pi \int_{0}^{2} \left( 2\left( z_{\text{max}}(r) - z_{\text{min}}(r) \right) \right) r , dr
+	= 4\pi \int_{0}^{2} r \left( z_{\text{max}}(r) - z_{\text{min}}(r) \right) dr.
+\end{equation}
+
+Разбиваем интеграл на два:
+\begin{equation} \label{eq:5}
+	V = 4 \pi \left(\int_{0}^{1} r \sqrt{\frac35 (r^2 + 1)}\, dr + \int_{1}^{2} r \left(\sqrt{\frac35 (r^2 + 1)} - \sqrt{r^2 - 1}\right)\,dr\right)
+\end{equation}
+
+Вычислим первый интеграл:
+\begin{multline} \label{eq:6}
+	\int_{0}^{1} r \sqrt{\frac35 (r^2 + 1)}\, dr = \frac{1}{2}\sqrt{\frac{3}{5}} \int_{0}^{1} \sqrt{r^2 + 1}\, d(r^2 + 1) = \frac12 \sqrt{\frac35} \frac23\, (r^2 + 1)^{3/2} \Big|_0^1 =\\= \boxed{\frac13 \sqrt{\frac35} (2\sqrt{2} - 1)}
+\end{multline}
+
+Вычислим второй интеграл, разделив его тоже на две части:
+\begin{equation} \label{eq:7}
+	\int_{1}^{2} r \sqrt{\frac35 (r^2 + 1)}\, dr = \sqrt{\frac35} \frac13\, (r^2 + 1)^{3/2} \Big|_1^2 = \boxed{\frac13 \sqrt{\frac35} (5\sqrt{5} - 2\sqrt{2})}
+\end{equation}
+\begin{equation} \label{eq:8}
+	\int_{1}^{2} r \sqrt{r^2 - 1}\, dr = \frac12 \int_{1}^{2} \sqrt{r^2 - 1}\, d(r^2 - 1) = \frac{1}{3}\, (r^2 - 1)^{3/2} \Big|_1^2 = \frac13 3\sqrt{3} = \boxed{\sqrt{3}}
+\end{equation}
+
+Подставим значения интегралов в формулу \cref{eq:5}:
+\begin{multline} \label{eq:9}
+	V = 4 \pi \left(\frac13 \sqrt{\frac35} (2\sqrt{2} - 1) + \frac13 \sqrt{\frac35} (5\sqrt{5} - 2\sqrt{2}) - \sqrt{3}\right) =\\= 4 \pi \left(\frac13 \sqrt{\frac35} (5\sqrt{5} - 1) - \sqrt{3}\right) = \boxed{\frac{4 \pi \sqrt{15} (2 \sqrt{5} - 1)}{15}}
+\end{multline}
+
+Вычислим примерное значение объема:
+\begin{equation} \label{eq:10}
+	\boxed{V \approx 11.265771973094854}
+\end{equation}
+
+Теперь, зная теоретическое значение объема тела, мы сможем анализировать точность получаемых данных.
