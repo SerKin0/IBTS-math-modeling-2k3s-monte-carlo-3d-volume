@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Russo+One&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="static/main_style.css">
+    <link rel="stylesheet" href="static/form_style.css">
+    <link rel="stylesheet" href="static/media_style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+</head>
+
+<body>
+    <script src="static/main.js"></script>
+    <div class="container">
+        <div class="content">
+            <div class="logo">
+                <iframe src="//coub.com/embed/498fin?muted=false&autostart=false&originalSize=false&startWithHD=false" allowfullscreen frameborder="0" width="640" height="360" allow="autoplay" class="coub-image"></iframe>
+            </div>
+        </div>
+        <form id="form">
+            <div class="title">Get Started</div>
+            <!-- UserName -->   
+            <div>
+                <label for="username">UserName</label>
+                <i class="fas fa-user"></i>
+
+                <input type="username" name="username" id="username" placeholder="Joy Shaheb">
+
+                <i class="fas fa-exclamation-circle failure-icon"></i>
+                <i class="far fa-check-circle succes-icon"></i>
+
+                <div class="error"></div>
+            </div>
+
+            <!-- Email -->
+            <div>
+                <label for="email">Email</label>
+                <i class="fa-solid fa-at"></i>
+
+                <input type="email" name="email" id="email" placeholder="abc@gmail.com">
+
+                <i class="fas fa-exclamation-circle failure-icon"></i>
+                <i class="far fa-check-circle succes-icon"></i>
+
+                <div class="error"></div>
+            </div>
+
+            <!-- Password -->
+            <div>
+                <label for="password">Password</label>
+                <i class="fas fa-lock"></i>
+
+                <input type="password" name="password" id="password" placeholder="Password here">
+
+                <i class="fas fa-exclamation-circle failure-icon"></i>
+                <i class="far fa-check-circle succes-icon"></i>
+
+                <div class="error"></div>
+            </div>
+
+            <button id="button" type="submit" onclick="sendMail()">Подтвердить</button>
+        </form>
+    </div>
+</body>
+</html>
