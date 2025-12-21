@@ -16,56 +16,88 @@
 </head>
 
 <body>
-    <script src="static/main.js"></script>
     <div class="container">
         <div class="content">
             <div class="logo">
-                <iframe src="//coub.com/embed/498fin?muted=false&autostart=false&originalSize=false&startWithHD=false" allowfullscreen frameborder="0" width="640" height="360" allow="autoplay" class="coub-image"></iframe>
+                <div class="coub-container">
+                    <iframe 
+                        src="//coub.com/embed/498fin?muted=false&autostart=false&originalSize=false&startWithHD=false" 
+                        allowfullscreen 
+                        frameborder="0" 
+                        allow="autoplay" 
+                        class="coub-iframe">
+                    </iframe>
+                </div>
             </div>
         </div>
         <form id="form">
             <div class="title">Get Started</div>
-            <!-- UserName -->   
-            <div>
+            
+            <!-- UserName -->
+            <div class="input-group">
                 <label for="username">UserName</label>
-                <i class="fas fa-user"></i>
-
-                <input type="username" name="username" id="username" placeholder="Joy Shaheb">
-
-                <i class="fas fa-exclamation-circle failure-icon"></i>
-                <i class="far fa-check-circle succes-icon"></i>
-
+                <div class="input-wrapper">
+                    <i class="fas fa-user input-icon"></i>
+                    <input type="text" name="username" id="username" placeholder="Иван Гойдарович">
+                    <i class="fas fa-exclamation-circle failure-icon"></i>
+                    <i class="far fa-check-circle success-icon"></i>
+                </div>
                 <div class="error"></div>
             </div>
 
             <!-- Email -->
-            <div>
+            <div class="input-group">
                 <label for="email">Email</label>
-                <i class="fa-solid fa-at"></i>
-
-                <input type="email" name="email" id="email" placeholder="abc@gmail.com">
-
-                <i class="fas fa-exclamation-circle failure-icon"></i>
-                <i class="far fa-check-circle succes-icon"></i>
-
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-at input-icon"></i>
+                    <input type="email" name="email" id="email" placeholder="abc@gmail.com">
+                    <i class="fas fa-exclamation-circle failure-icon"></i>
+                    <i class="far fa-check-circle success-icon"></i>
+                </div>
                 <div class="error"></div>
             </div>
 
             <!-- Password -->
-            <div>
+            <div class="input-group">
                 <label for="password">Password</label>
-                <i class="fas fa-lock"></i>
-
-                <input type="password" name="password" id="password" placeholder="Password here">
-
-                <i class="fas fa-exclamation-circle failure-icon"></i>
-                <i class="far fa-check-circle succes-icon"></i>
-
+                <div class="input-wrapper">
+                    <i class="fas fa-lock input-icon"></i>
+                    <input type="password" name="password" id="password" placeholder="Пароль">
+                    <i class="fas fa-eye eye-icon" id="togglePassword"></i>
+                    <i class="fas fa-exclamation-circle failure-icon"></i>
+                    <i class="far fa-check-circle success-icon"></i>
+                </div>
                 <div class="error"></div>
             </div>
 
-            <button id="button" type="submit" onclick="sendMail()">Подтвердить</button>
+            <div class="requirement-list">
+                <p>Пароль должен содержать:</p>
+                <ul class="requirement-list__ul">
+                    <li class="requirement-item" data-requirement="lowercase">
+                        <i class="fa-solid fa-circle requirement-icon"></i>
+                        <span>Строчные буквы</span>
+                    </li>
+                    <li class="requirement-item" data-requirement="uppercase">
+                        <i class="fa-solid fa-circle requirement-icon"></i>
+                        <span>Заглавные буквы</span>
+                    </li>
+                    <li class="requirement-item" data-requirement="number">
+                        <i class="fa-solid fa-circle requirement-icon"></i>
+                        <span>Цифры</span>
+                    </li>
+                    <li class="requirement-item" data-requirement="length">
+                        <i class="fa-solid fa-circle requirement-icon"></i>
+                        <span>Минимум 8 символов</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <button id="button" type="submit">Подтвердить</button>
         </form>
     </div>
+
+    <script src="src/main.js"></script>
+    <script src="src/password.js"></script>
+    <script src="src/Mail.js"></script>
 </body>
 </html>
