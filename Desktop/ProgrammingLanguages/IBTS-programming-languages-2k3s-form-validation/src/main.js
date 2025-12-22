@@ -7,10 +7,10 @@ let username = id("username"),
     form = id("form");
 
 let errorMsg = classes("error"),
-    successIcon = classes("succes-icon"), // Обратите внимание: 'succes' без второй 's'
+    successIcon = classes("success-icon"),
     failureIcon = classes("failure-icon");
 
-// Проверка пароля и обновление иконок
+// Функция проверки пароля и обновления списка требований
 function checkPassword(pass) {
     const checks = {
         lowercase: /[a-z]/.test(pass),
@@ -18,87 +18,139 @@ function checkPassword(pass) {
         number: /\d/.test(pass),
         length: pass.length >= 8
     };
-    
-    // Обновляем иконки в списке
-    const items = document.querySelectorAll('.requirement-item');
-    items.forEach((item, i) => {
-        const icon = item.querySelector('i');
-        const isValid = Object.values(checks)[i];
-        
-        if (isValid) {
-            icon.className = 'fas fa-check-circle';
-            icon.style.color = '#00c851';
+
+    document.querySelectorAll('.requirement-item').forEach(item => {
+        const req = item.getAttribute('data-requirement');
+        const icon = item.querySelector('.requirement-icon');
+        if (checks[req]) {
+            icon.classList.add('valid');
+            icon.classList.remove('invalid');
         } else {
-            icon.className = 'fas fa-times-circle';
-            icon.style.color = '#ff4444';
+            icon.classList.add('invalid');
+            icon.classList.remove('valid');
         }
     });
-    
-    // Все проверки пройдены?
-    return Object.values(checks).every(check => check === true);
+
+    return Object.values(checks).every(v => v);
 }
 
-// Сброс иконок пароля
+// Сброс иконок требований пароля
 function resetPasswordIcons() {
-    const icons = document.querySelectorAll('.requirement-item i');
-    icons.forEach(icon => {
-        icon.className = 'fa-solid fa-circle';
-        icon.style.color = '#888';
+    document.querySelectorAll('.requirement-icon').forEach(icon => {
+        icon.classList.remove('valid', 'invalid');
     });
 }
 
-// Проверка поля формы
-function validateField(field, index, message) {
+// Универсальная функция проверки одного поля в реальном времени
+function validateFieldLive(field, index, emptyMsg) {
     const value = field.value.trim();
-    
+
+    // Если поле пустое — показываем ничего (или можно failure, но по заданию — только при ошибке)
     if (value === "") {
-        errorMsg[index].innerHTML = message;
-        field.style.border = "2px solid red";
+        errorMsg[index].textContent = "";
+        field.style.border = "2px solid #c4c4c4";
         successIcon[index].style.opacity = "0";
-        failureIcon[index].style.opacity = "1";
-        return false;
+        failureIcon[index].style.opacity = "0";
+        return;
     }
-    
-    // Для пароля проверяем требования
-    if (field === password && !checkPassword(value)) {
-        errorMsg[index].innerHTML = "Пароль не соответствует требованиям";
-        field.style.border = "2px solid red";
-        successIcon[index].style.opacity = "0";
-        failureIcon[index].style.opacity = "1";
-        return false;
+
+    let isValid = true;
+
+    // Специальная проверка для email (простая, но достаточная)
+    if (field === email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        isValid = emailRegex.test(value);
+        if (!isValid) {
+            errorMsg[index].textContent = "Email is not valid";
+        }
     }
-    
-    errorMsg[index].innerHTML = "";
-    field.style.border = "2px solid green";
-    successIcon[index].style.opacity = "1";
+
+    // Специальная проверка для пароля
+    if (field === password) {
+        isValid = checkPassword(value);
+        if (!isValid && value.length > 0) {
+            errorMsg[index].textContent = "Password does not meet requirements";
+        }
+    }
+
+    // Для username — просто непустое
+    if (field === username && value.length < 3) {
+        isValid = false;
+        errorMsg[index].textContent = "Username must be at least 3 characters";
+    }
+
+    // Применяем стили и иконки
+    if (isValid) {
+        errorMsg[index].textContent = "";
+        field.style.border = "2px solid green";
+        successIcon[index].style.opacity = "1";
+        failureIcon[index].style.opacity = "0";
+    } else {
+        if (value !== "") { // Показываем ошибку только если поле не пустое
+            field.style.border = "2px solid red";
+            successIcon[index].style.opacity = "0";
+            failureIcon[index].style.opacity = "1";
+        }
+    }
+}
+
+// Очистка стилей при фокусе (опционально — красиво)
+function clearFieldStyles(field, index) {
+    field.style.border = "2px solid #f2796e"; // фокус-цвет
+    errorMsg[index].textContent = "";
+    successIcon[index].style.opacity = "0";
     failureIcon[index].style.opacity = "0";
-    return true;
 }
 
-// Валидация пароля при вводе
-if (password) {
-    password.addEventListener('input', function() {
-        if (this.value.length > 0) {
-            checkPassword(this.value);
-        } else {
-            resetPasswordIcons();
-        }
-    });
-}
+// Добавляем обработчики ввода для каждого поля
+username.addEventListener('input', () => validateFieldLive(username, 0, "Username cannot be blank"));
+email.addEventListener('input', () => validateFieldLive(email, 1, "Email cannot be blank"));
+password.addEventListener('input', () => validateFieldLive(password, 2, "Password cannot be blank"));
 
-// Отправка формы
-if (form) {
-    form.addEventListener("submit", (e) => {
-        e.preventDefault();
-        
-        const validUsername = validateField(username, 0, "Username cannot be blank");
-        const validEmail = validateField(email, 1, "Email cannot be blank");
-        const validPassword = validateField(password, 2, "Password cannot be blank");
-        
-        if (validUsername && validEmail && validPassword) {
-            alert("Форма успешно отправлена!");
-            form.reset();
-            resetPasswordIcons();
-        }
-    });
-}
+// При фокусе — подсвечиваем и убираем ошибки
+username.addEventListener('focus', () => clearFieldStyles(username, 0));
+email.addEventListener('focus', () => clearFieldStyles(email, 1));
+password.addEventListener('focus', () => clearFieldStyles(password, 2));
+
+// При потере фокуса — можно проверить снова (если нужно)
+username.addEventListener('blur', () => validateFieldLive(username, 0));
+email.addEventListener('blur', () => validateFieldLive(email, 1));
+password.addEventListener('blur', () => validateFieldLive(password, 2));
+
+// Сброс при очистке формы
+form.addEventListener("reset", () => {
+    setTimeout(() => { // небольшой таймаут, чтобы сработало после reset
+        username.style.border = email.style.border = password.style.border = "2px solid #c4c4c4";
+        errorMsg[0].textContent = errorMsg[1].textContent = errorMsg[2].textContent = "";
+        successIcon.forEach(icon => icon.style.opacity = "0");
+        failureIcon.forEach(icon => icon.style.opacity = "0");
+        resetPasswordIcons();
+    }, 10);
+});
+
+form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    // Проверяем все поля в реальном времени
+    validateFieldLive(username, 0);
+    validateFieldLive(email, 1);
+    validateFieldLive(password, 2);
+
+    const usernameValid = username.value.trim() !== "" && username.value.trim().length >= 3;
+    const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
+    const passwordValid = checkPassword(password.value);
+
+    if (usernameValid && emailValid && passwordValid) {
+        // Сохраняем данные в localStorage
+        localStorage.setItem("reg_username", username.value.trim());
+        localStorage.setItem("reg_email", email.value.trim());
+
+        // Отправляем письмо
+        sendMail();
+
+        // Переходим на страницу успеха
+        window.location.href = "templates/success.html";
+    } else {
+        alert("Пожалуйста, исправьте ошибки в форме.");
+    }
+});

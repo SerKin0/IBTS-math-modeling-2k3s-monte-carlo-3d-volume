@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome!</title>
+    <link rel="stylesheet" href="main_style.css">
+    <link rel="stylesheet" href="form_style.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f9f9f9;
+        }
+        .welcome-card {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+        }
+        .welcome-card h1 {
+            color: #f2796e;
+            margin-bottom: 20px;
+        }
+        .welcome-card p {
+            font-size: 18px;
+            margin: 15px 0;
+            color: #333;
+        }
+        .welcome-card strong {
+            color: #f2796e;
+        }
+        .back-btn {
+            margin-top: 30px;
+            padding: 12px 30px;
+            background-color: #f2796e;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .back-btn:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="welcome-card">
+        <h1>Регистрация успешна! 🎉</h1>
+        <p>Привет, <strong id="display-username">...</strong>!</p>
+        <p>Твой email: <strong id="display-email">...</strong></p>
+        <p>Мы отправили подтверждение на вашу почту.</p>
+        <p>Спасибо за регистрацию!</p>
+        <button class="back-btn" onclick="window.location.href='index.html'">Вернуться на главную</button>
+    </div>
+
+    <script>
+        // Получаем данные из localStorage
+        const username = localStorage.getItem("reg_username");
+        const email = localStorage.getItem("reg_email");
+
+        if (username && email) {
+            document.getElementById("display-username").textContent = username;
+            document.getElementById("display-email").textContent = email;
+        } else {
+            document.querySelector(".welcome-card").innerHTML = `
+                <h1>Ошибка</h1>
+                <p>Данные не найдены. Пожалуйста, пройдите регистрацию заново.</p>
+                <button class="back-btn" onclick="window.location.href='index.html'">На главную</button>
+            `;
+        }
+
+        // Очищаем localStorage (по желанию — можно оставить)
+        // localStorage.clear();
+    </script>
+</body>
+</html>

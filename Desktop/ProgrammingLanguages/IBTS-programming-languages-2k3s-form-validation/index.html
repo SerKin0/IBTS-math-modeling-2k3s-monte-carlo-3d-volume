@@ -3,42 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Validation</title>
+    <title>JavaScript Form Validation</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Russo+One&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="static/main_style.css">
     <link rel="stylesheet" href="static/form_style.css">
     <link rel="stylesheet" href="static/media_style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
 </head>
-
 <body>
     <div class="container">
+        <!-- Левая часть с иллюстрацией -->
         <div class="content">
-            <div class="logo">
-                <div class="coub-container">
-                    <iframe 
-                        src="//coub.com/embed/498fin?muted=false&autostart=false&originalSize=false&startWithHD=false" 
-                        allowfullscreen 
-                        frameborder="0" 
-                        allow="autoplay" 
-                        class="coub-iframe">
-                    </iframe>
-                </div>
+            <div class="image">
+                <iframe src="//coub.com/embed/3e3yg9?muted=false&autostart=false&originalSize=true&startWithHD=true" allowfullscreen frameborder="0" width="100%" height="720" allow="autoplay"></iframe><script async src="//c-cdn.coub.com/embed-runner.js"></script>
             </div>
         </div>
+
+        <!-- Форма -->
         <form id="form">
-            <div class="title">Get Started</div>
-            
-            <!-- UserName -->
+            <div class="title">Sign In</div>
+
+            <!-- Username -->
             <div class="input-group">
-                <label for="username">UserName</label>
+                <label for="username">Имя и Фамилия</label>
                 <div class="input-wrapper">
                     <i class="fas fa-user input-icon"></i>
-                    <input type="text" name="username" id="username" placeholder="Иван Гойдарович">
+                    <input type="text" name="username" id="username" placeholder="Иван Гойдарович                    ">
                     <i class="fas fa-exclamation-circle failure-icon"></i>
                     <i class="far fa-check-circle success-icon"></i>
                 </div>
@@ -47,10 +41,10 @@
 
             <!-- Email -->
             <div class="input-group">
-                <label for="email">Email</label>
+                <label for="email">Почта</label>
                 <div class="input-wrapper">
-                    <i class="fa-solid fa-at input-icon"></i>
-                    <input type="email" name="email" id="email" placeholder="abc@gmail.com">
+                    <i class="fas fa-envelope input-icon"></i>
+                    <input type="email" name="email" id="email" placeholder="abc123@gmail.com">
                     <i class="fas fa-exclamation-circle failure-icon"></i>
                     <i class="far fa-check-circle success-icon"></i>
                 </div>
@@ -59,7 +53,7 @@
 
             <!-- Password -->
             <div class="input-group">
-                <label for="password">Password</label>
+                <label for="password">Пароль</label>
                 <div class="input-wrapper">
                     <i class="fas fa-lock input-icon"></i>
                     <input type="password" name="password" id="password" placeholder="Пароль">
@@ -70,34 +64,35 @@
                 <div class="error"></div>
             </div>
 
+            <!-- Требования к паролю -->
             <div class="requirement-list">
-                <p>Пароль должен содержать:</p>
+                <p>Password must contain:</p>
                 <ul class="requirement-list__ul">
                     <li class="requirement-item" data-requirement="lowercase">
                         <i class="fa-solid fa-circle requirement-icon"></i>
-                        <span>Строчные буквы</span>
+                        <span>Lowercase letters</span>
                     </li>
                     <li class="requirement-item" data-requirement="uppercase">
                         <i class="fa-solid fa-circle requirement-icon"></i>
-                        <span>Заглавные буквы</span>
+                        <span>Uppercase letters</span>
                     </li>
                     <li class="requirement-item" data-requirement="number">
                         <i class="fa-solid fa-circle requirement-icon"></i>
-                        <span>Цифры</span>
+                        <span>Numbers</span>
                     </li>
                     <li class="requirement-item" data-requirement="length">
                         <i class="fa-solid fa-circle requirement-icon"></i>
-                        <span>Минимум 8 символов</span>
+                        <span>Minimum 8 characters</span>
                     </li>
                 </ul>
             </div>
-            
-            <button id="button" type="submit">Подтвердить</button>
+
+            <button type="submit">Submit</button>
         </form>
     </div>
 
-    <script src="src/main.js"></script>
     <script src="src/password.js"></script>
+    <script src="src/main.js"></script>
     <script src="src/Mail.js"></script>
 </body>
 </html>
