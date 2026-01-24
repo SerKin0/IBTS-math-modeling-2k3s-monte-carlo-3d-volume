@@ -1,0 +1,587 @@
+\documentclass[8pt]{extarticle}
+
+\usepackage{diplomstyle}
+
+\geometry{
+	a4paper,
+	paperheight=140mm,
+	paperwidth=140mm,
+	left=0.5cm,    % уменьшено с 3cm
+right=0.5cm,   % уменьшено с 1.5cm
+	top=0.5cm,     % уменьшено с 2cm
+	bottom=0.5cm,  % уменьшено с 2cm
+	footskip=0.8cm % добавлено для корректного отступа снизу
+}
+
+
+
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{makecell}
+\usepackage{amsmath}
+\usepackage{ragged2e}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{esint}
+%\usepackage{draftwatermark}
+\usepackage{tikz} 
+\usepackage{circuitikz} 
+
+
+\DeclareMathOperator{\re}{\operatorname{Re}}
+\DeclareMathOperator{\im}{\operatorname{Im}}
+\DeclareMathOperator{\Epsilon}{\mathcal{E}}
+\DeclareMathOperator{\Div}{\operatorname{div}}
+\DeclareMathOperator{\Rot}{\operatorname{rot}}
+\DeclareMathOperator{\Grad}{\operatorname{grad}}
+%\DeclareMathOperator\re{re}
+%\DeclareMathOperator\im{im}
+\makeatletter
+\newcommand\incircbin
+{%
+	\mathpalette\@incircbin
+}
+\newcommand\@incircbin[2]
+{%
+	\mathbin%
+	{%
+		\ooalign{\hidewidth$#1#2$\hidewidth\crcr$#1\bigcirc$}%
+	}%
+}
+\newcommand{\oeq}{\incircbin{=}}
+\makeatother
+
+\newcommand{\pp}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\dd}[2]{$\frac{d {#1}}{d {#2}}$}
+
+\newcommand{\ppp}[2]{\frac{\partial^2 #1}{\partial #2^2}}
+\newcommand{\ddd}[2]{$\frac{d^2 {#1}}{d {#2}^2}$}
+
+
+
+\renewcommand{\theadfont}{\normalsize}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+
+\title{Ответы на вопросы \\ <<Векторный Тензорный Анализ>>}
+\author{Скороходов С. А., 427 группа}
+\date{ }
+
+%\SetWatermarkText{\textbf{SerKin0}}
+%\SetWatermarkColor[gray]{0.95}
+%\SetWatermarkScale{1}
+
+
+\begin{document}
+	\setlength{\abovedisplayskip}{3px}
+	\setlength{\belowdisplayskip}{3px}
+	\setlength{\abovedisplayshortskip}{3px}
+	\setlength{\belowdisplayshortskip}{3px}
+	\maketitle
+	Ответы на вопросы по дисциплине «Векторный тензорный анализ» подготовлены для зимней экзаменационной сессии 2025-2026 учебного года для студентов радиофизического факультета. Данный материал предназначен для направления подготовки «Информационная безопасность телекоммуникационных систем» и разработан на основе лекций и практических занятий, проводимых преподавателем Дубковым Александром Александровичем.\\
+	
+	Благодарность в помощи составления ответов выражается Филипповой Виктории Михайловне.
+	\tableofcontents
+	
+	\newpage
+	\begin{librarybox}
+		1.	Определения векторной функции скалярного аргумента и векторной функции многих переменных. Предел векторной функции по Коши и по Гейне. Теорема о соответствии пределов
+	\end{librarybox}
+	\textit{Определение:} Отображение $\vec{f}:\big((a, b) \subset \mathbb{R}\big) \to \mathbb{R}^m$ называется \textbf{векторной функцией} скалярного аргумента $\vec{f} = \vec{f}(t)$, где $t \in (a, b)$.\\
+	
+	\textbf{Предел по Коши:} 
+	
+	Пусть задана векторная функция $\vec{f}:(E \subset \mathbb{R}^n) \to \mathbb{R}^m$ и $x_0$ -- предельная точка множества $E$. Тогда вектор $\vec{A} \subset \mathbb{R}^m$ называется пределом функции $\vec{f}(\vec{x})$ в точке $\vec{x}_0 \in E$, если:
+	\[\big(\forall \Epsilon > 0\big)\big(\exists \delta = \delta(\Epsilon) > 0\big)\big(\forall \vec{x}: ||\vec{x} - \vec{x}_0||_{\mathbb{R}^n} < \delta\big): ||\vec{f}(\vec{x}_0) - \vec{A}||_{\mathbb{R}^n} < \Epsilon\]\\
+	
+	\textbf{Предел по Гейне}
+	
+	Пусть задана векторная функция $\vec{f}: (E \subset \mathbb{R}^n) \to \mathbb{R}^m$, а $\vec{x}_0$ -- предельная точка множества $E$. Тогда вектор $\vec{A} \in \mathbb{R}^m$ называется пределом функции $\vec{f}(\vec{x})$ в точке $\vec{x}_0$, если:
+	\[\big\{ \forall \{\vec{x}_n\} \in E : \vec{x}_n - \vec{x}_0 \big\} : \{f(\vec{x}_n)\}_{m \to \infty}^{\mathbb{R}^m} \to \vec{A}\]
+
+	
+	\newpage
+	\begin{librarybox}
+		2.	Свойства пределов векторной функции многих переменных
+	\end{librarybox}
+	Пусть:
+	\[\begin{aligned}
+		\vec{f}: (E \subset \mathbb{R}^n) \to \mathbb{R}^m && &&
+		\vec{g}: (E \subset \mathbb{R}^n) \to \mathbb{R}^m && &&
+		h: (E \subset \mathbb{R}^n) \to \mathbb{R}
+	\end{aligned}\]
+	
+	Если:
+	\[\begin{aligned}
+		\exists \lim_{\vec{x} \to \vec{x}_0} \vec{f}(\vec{x}) = \vec{A} && &&
+		\exists \lim_{\vec{x} \to \vec{x}_0} \vec{g}(\vec{x}) = \vec{B} && &&
+		\exists \lim_{\vec{x} \to \vec{x}_0} h(\vec{x}) = \vec{C} 
+	\end{aligned}\]
+	
+	\textbf{Свойства:}
+	\begin{enumerate}
+		\item $\displaystyle \lim_{\vec{x} \to \vec{x}_0} \big[ \vec{f}(\vec{x}) \pm \vec{g}(\vec{x}) \big] = \vec{A} \pm \vec{B}$
+		\item $\displaystyle \lim_{\vec{x} \to \vec{x}_0} \big[h(\vec{x}) \cdot \vec{f}(\vec{x})\big] = C \cdot \vec{A}$
+		\item $\displaystyle \lim_{\vec{x} \to \vec{x}_0} \big(\vec{f}(\vec{x}), \vec{g}(\vec{x})\big) = (\vec{A}, \vec{B})$
+		\item $\displaystyle \lim_{\vec{x} \to \vec{x}_0} \big[\vec{f}(\vec{x}), \vec{g}(\vec{x})\big] = [\vec{A}, \vec{B}]$
+	\end{enumerate}
+	
+	\newpage
+	\begin{librarybox}
+		3. Теорема о пределе векторного произведения
+	\end{librarybox}
+	Пусть:
+	\[\begin{aligned}
+		\vec{f} : (E \subset \mathbb{R}^n) \to \mathbb{R}^3, && \vec{g}: (E \subset \mathbb{R}^n) \to \mathbb{R}^3,
+	\end{aligned}\] 
+	
+	Если:
+	\[\begin{aligned}
+		\exists \lim_{\vec{x} \to \vec{x}_0} \vec{f}(\vec{x}) = \vec{A}, && \vec{A} \in \mathbb{R}^3, &&
+		\exists \lim_{\vec{x} \to \vec{x}_0} \vec{g}(\vec{x}) = \vec{B} && \vec{B} \in \mathbb{R}^3,
+	\end{aligned},\]
+	где $\vec{x}_0$ -- предельная точка множества $E$, то:
+	\[\boxed{\exists\lim_{\vec{x} \to \vec{x}_0} \big[\vec{f}(\vec{x}), \vec{g}(\vec{x})\big] = [\vec{A}, \vec{B}]}\]\\
+	
+	\textbf{Доказательство:}
+	
+	\begin{multline*}
+		\lim_{\vec{x} \to \vec{x}_0} \big[\vec{f}(\vec{x}), \vec{g}(\vec{x})\big] = \lim_{\vec{x} \to \vec{x}_0} \begin{vmatrix}
+			\vec{i} & \vec{j} & \vec{k} \\
+			\vec{f}_1(\vec{x}) & \vec{f}_2(\vec{x}) & \vec{f}_3(\vec{x}) \\
+			\vec{g}_1(\vec{x}) & \vec{g}_2(\vec{x}) & \vec{g}_3(\vec{x})
+		\end{vmatrix} = \\ =
+		\lim_{\vec{x} \to \vec{x}_0} \Big[\vec{i}\big(f_2g_3 - f_3g_2\big) + \vec{j}\big(g_1f_3- f_1g_3\big) + \vec{k} \big(f_1g_2 - f_2g_1\big)\Big] =\\= \vec{i}(A_2B_3 - A_3 B_2) + \vec{j}(B_1A_3 - A_1 B_3) + \vec{k}(A_1B_2 - A_2B_1) = \begin{vmatrix}
+			\vec{i} & \vec{j} & \vec{k} \\
+			A_1 & A_2 & A_3  \\
+			B_1 & B_2 & B_3
+		\end{vmatrix} =\\= \boxed{[\vec{A}, \vec{B}]}
+	\end{multline*}
+	
+	
+	\newpage
+	\begin{librarybox}
+		4. Непрерывность и дифференцируемость векторных функций
+	\end{librarybox}
+	\textit{Определение:} Векторная функция $\vec{f}: (E \subset \mathbb{R}^n)$ называется \textbf{непрерывной} в точке $\vec{x}_0$, если:
+	\[\boxed{\lim_{\vec{x} \to \vec{x}_0} \vec{f}(\vec{x}) = \vec{f}(\vec{x}_0)}\]
+	
+	Если непрерывность выполняется во всех точках отрезка, то на всей плоскости:
+	\[\boxed{\big(\forall \Epsilon > 0\big)\big(\exists \delta = \delta(\Epsilon) > 0\big)\big(\forall \vec{x} \in E: ||\vec{x} - \vec{x}_0|| < \delta\big) \Rightarrow ||\vec{f}(\vec{x}) - \vec{f}(\vec{x}_0)|| < \Epsilon}\]\\
+	
+	\textit{Определение:} 
+	Пусть $\vec{f}: \big((a, b) \subset \mathbb{R}\big) \to \mathbb{R}^m$. Векторная функция $\vec{f}(t)$ называется \textbf{дифференцируемой} в точке $t = t_0$, если:
+	\[\boxed{\Delta \vec{f}(t_0) = \vec{f}(t_0 + \Delta t) - \vec{f}(t_0) = \vec{A} \Delta t + \vec{\alpha}(\Delta t)\Delta t},\]
+	где $\vec{\alpha}(\Delta t) \to \vec{0} = \{0, ..., 0\}$ нуль-вектор, $\Delta t \to 0$, $\vec{A} \in \mathbb{R}^m$ -- постоянный вектор.\\
+	
+	\textit{Определение:} Векторная функция многих переменных $\vec{f}: (z \subset \mathbb{R}^n) \to \mathbb{R}^m$, называется \textbf{дифференциалом} в точке $\vec{x} = \vec{x}_0$, если:
+	\[\boxed{\Delta \vec{f}(\vec{x}_0) = \vec{f}(\vec{x}_0 + \Delta \vec{x}) - \vec{f}(\vec{x}_0) = A \Delta \vec{x} + \alpha (\Delta \vec{x})}\]
+	
+	\newpage
+	\begin{librarybox}
+		5. Теорема о производной векторной функции скалярного аргумента. Правила дифференцирования
+	\end{librarybox}
+	\textit{Определение:} \textbf{Производной функции} $\vec{f}(t)$ в точке $t=t_0$ называется значение предела:
+	\[\lim_{t\to t_0} \frac{\Delta f(t_0)}{\Delta t} = \vec{f}'(t_0),\]
+	где $\Delta t = t - t_0$. 
+%	\begin{figure}[H]
+%		\centering
+%		\resizebox{0.4\textwidth}{!}{
+%			\begin{circuitikz}
+%				\tikzstyle{every node}=[font=\normalsize]
+%				\draw [short] (18,21.75) .. controls (20,22.75) and (21.25,21.5) .. (21.75,19.25);
+%				\draw [->, >=Stealth] (18.75,19.5) -- (20,22)node[pos=1.15, fill=white]{$\vec{r}(t)$};
+%				\draw [->, >=Stealth] (18.75,19.5) -- (21.25,20.75)node[pos=0.6, fill=white]{$\vec{r}(t_0)$};
+%				\node at (18.75,19.5) [circ] {};
+%				\node [] at (18,22.25) {$t=a$};
+%				\node [] at (21.25,19.25) {$t=b$};
+%				\draw [->, >=Stealth, dashed] (20,22) -- (21.75,21.25)node[pos=1.3, fill=white]{$\vec{r}'(t_0)$};
+%			\end{circuitikz}
+%		}
+%	\end{figure}
+
+	\textit{Геометрический смысл:} Пусть ориентированная кривая $C \in \mathbb{R}^3$ задана векторным уравнением $\vec{r} = \vec{r}(t)$, $t \in [a, b]$ и $\vec{r}$ -- дифференцируема в точке $t_0 \in (a, b)$, тогда вектор $\vec{r}'(t_0)$ касается кривой $C$ в точке $t = t_0$ и направлен в сторону увеличения аргумента $t$. \\
+	
+	\textbf{Правила дифференцирования}
+	Если $\exists \vec{f}'(t_0), \vec{g}'(t_0), \vec{h}'(t_0)$:
+	\[\begin{aligned}
+		\vec{f}: \big((a, b) \subset \mathbb{R}\big) \to \mathbb{R}^m, && \vec{g}: \big((a, b) \subset \mathbb{R}\big) \to \mathbb{R}^m, && \vec{h}: \big((a, b) \subset \mathbb{R}\big) \to \mathbb{R}^m,
+	\end{aligned}\]
+	то справедливы следующие соотношения:
+	\begin{enumerate}
+		\item $\displaystyle \big(\vec{f}(t) \pm \vec{g}\big)'_{t=t_0} = \vec{f}'(t_0) \pm \vec{g}'(t_0)$
+		\item $\displaystyle \big(h(t) \cdot \vec{f}(t)\big)'_{t=t_0} = h'(t_0) \cdot f(t_0) + h(t_0) \cdot f'(t_0)$
+		\item $\displaystyle \big(\vec{f}(t), \vec{g}(t)\big)'_{t=t_0} = \big(\vec{f}'(t_0), \vec{g}(t_0)\big) + \big(\vec{f}(t_0), \vec{g}'(t_0)\big)$
+		\item $\displaystyle \Big(f\big(h(t)\big)\Big)'_{t=t_0} = \vec{f}_h'\big(h(t_0)\big) \cdot h'(t_0)$
+		\item Если $m=3$, то $\displaystyle \big[\vec{f}(t), \vec{g}(t)\big]'_{t=t_0} = \big[\vec{f}'(t_0), \vec{g}(t_0)\big] + \big[\vec{f}(t_0), \vec{g}'(t_0)\big]$.
+	\end{enumerate}
+	
+	\textbf{Доказательство:}
+	\[\vec{r}'(t_0) = \lim_{t\to t_0} \frac{\vec{r}(t_0 + \Delta t) - \vec{r}(t_0)}{\Delta t}\]
+	-- вектор направлен по касательной в сторону увеличения аргумента.
+	
+	\newpage
+	\begin{librarybox}
+		24. Определение поверхностного интеграла 2-го рода, его сведение к двойному интегралу. Представление поверхностного интеграла 2-го рода в декартовой системе координат
+	\end{librarybox}
+	\textbf{Определение поверхностного интеграла 2-го рода, его сведение к двойному интегралу:} 
+	Совокупность точек двусторонней поверхности $S$ с приписанным в них направлением нормали называется стороной поверхности и обозначает: $\big(M, \vec{n}(M)\big)$, $M \in S$. 
+	
+	Пусть $S$ -- гладкая двусторонняя поверхность. Выберем одну из сторон поверхности $\big(M, \vec{n}(M)\big)$ и рассмотрим векторную функцию $\vec{A}: S \to \mathbb{R}^3$ определенную на $S$, тогда: 
+	\[\iint_S \big(\vec{A}(M), \vec{n}(M)\big)\, dS\]
+	называется поверхностным интегралом 2-ого рода от вектора функции $\vec{A}$ по поверхности $S$.
+	
+	\textit{Определение:} Пусть $S$ -- гладкая двусторонняя поверхность с выбранной стороной $\big(M, \vec{n}(M)\big)$, заданная параметризацией $\vec{r} = \vec{r}(u, v)$, $(u, v) \in \Omega$. Тогда справедлива формула:
+	\[\iint_S (\vec{A}, \vec{n})\, dS = \iint_\Omega (\vec{A}, \vec{r}_u', \vec{r}_v')\, du\, dv\]
+	\textbf{Доказательство: }
+	По теореме о вычислении поверхностного интеграла 1-ого рода и выражению для нормали к поверхности $S$:
+	\[\begin{aligned}
+		\iint_S (\vec{A}, \vec{n})\, dS = \iint_\Omega (\vec{A}, \vec{n}) \big|[\vec{r}_u', \vec{r}_v']\big|\, du\, dv && \vec{n} = \pm \frac{[\vec{r}_u', \vec{r}_v']}{\big|[\vec{r}_u', \vec{r}_v']\big|}
+	\end{aligned}\]
+	
+	Если вектора $(\vec{r}_u', \vec{r}_v', \vec{n})$ составляют правую тройку с выбранным направлением нормали, то в формуле для $\vec{n}$ взять знак $+$. 
+	
+	
+	\textbf{Представление поверхностного интеграла 2-го рода в декартовой системе координат:} Если в $\mathbb{R}^3$ введена декартова система координат, то векторную функцию $\vec{A}(M)$ и нормаль $\vec{n}(M)$ можно разложить по базису $(\vec{i}, \vec{j}, \vec{k})$:
+	\[\vec{A}(M) = P(x, y, z) \vec{i} + Q(x, y, z) \vec{j} + R(x, y, z) \vec{k}\]
+	\[\vec{n}(M) = \vec{i} \cos \alpha + \vec{j} \cos \beta + \vec{k} \cos \gamma,\]
+	где $\cos \alpha, \cos \beta, \cos \gamma$ -- косинусы направляющих углов нормали, которые они составляют с осями координат, при этом $\cos^2 \alpha + \cos^2 \beta + \cos^2 \gamma = 1$:
+	\[\iint_S \big(\vec{A}(M), \vec{n}(M)\big)\, dS = \iint_S \big(P\cos \alpha + Q \cos \beta + R \cos \gamma\big)\, dS \,\oeq\]
+	$dy\, dz = dS \cos \alpha$, $dz \, dx = dS  \cos \beta$, $dx\, dy = dS \cos \gamma$ -- проекции $dS$ на $YoZ$, $XoZ$, $XoY$.
+	\[\oeq \iint_S Pdy\, dz + Qdz\,dx + Rdx\, dy = \iint_S Pdy\,dz + \iint_S Qdz\,dx + \iint_S Rdx\,dy\]
+	
+	\newpage
+	\begin{librarybox}
+		28. Градиент скалярного поля, его физический смысл. Связь с производной по направлению и поверхностью уровня
+	\end{librarybox}
+	
+	\textit{Определение:}
+	Градиентом скалярного поля называется вектор:
+	\[\Grad u = \pp{u}{x} \vec{i} + \pp{u}{y} \vec{j} + \pp{u}{z} \vec{k}\]
+	
+	\textit{Связь в производной по направлению:} 
+	Из выражения для производной по направлению
+	\[\pp{u}{l} = (\vec{l}, \Grad u) = |\Grad u| \cdot \cos \theta,\]
+	где $\theta$ -- Угол между $\Grad u$ и единичным вектором $\vec{l}$. 
+	
+	
+	
+	Из формулы видно, что в каждой точке, где $\Grad u \neq 0$, существует единственное направление, в котором $\pp{u}{l}$ имеет наибольшее значение. Это значение достигается при $\theta = 0$ т.е. когда направление \( \vec{l} \) совпадает с направлением градиента. Таким образом, вектор \( \Grad u \) указывает направление наибыстрейшего возрастания скалярного поля, а его модуль равен максимальной скорости изменения поля в данной точке:
+	\[\left.\pp{u}{l}\right|_\text{max} = |\Grad u|\]
+	
+	\textit{Связь с поверхностью уровня:}
+	На поверхности уровня $u(x, y, z) = C$ выберем точку $M$ и построим в ней касательную плоскость к поверхности. Для любого вектора $\vec{l}$, лежащего в касательной плоскости $\pp{u}{l} = 0$ , т.к. поле не меняется вдоль поверхности уровня. С другой стороны \[\pp{u}{l} = (\vec{l}, \Grad u) = 0,\] т.е. $\Grad u$ перпендикулярен любому вектору $\vec{l}$ в касательной плоскости. Следовательно, градиент в точке $M$ направлен по нормали к касательной плоскости, т.е. по нормали к самой поверхности уровня.
+	
+	\begin{figure}[H]
+		\centering
+		\resizebox{0.27\textwidth}{!}{%
+			\begin{circuitikz}
+				\tikzstyle{every node}=[font=\normalsize]
+				\node [] at (18.3,22) {$M$};
+				\draw  (18.25,21.5) ellipse (1.25cm and 1cm);
+				\draw  (17.75,22.75) -- (19.25,22.75) -- (19.75,21.5) -- (18.25,21.5) -- cycle;
+				\draw [ dashed] (18.25,21.5) ellipse (1.25cm and 0.25cm);
+				\node at (18.75,22) [circ] {};
+				\draw [->, >=Stealth] (18.75,22) -- (18.5,22.75)node[pos=1.5, fill=white]{$\vec{l}$};
+				\draw [->, >=Stealth] (18.75,22) -- (20,22.5)node[pos=1.5, fill=white]{$\Grad u$};
+				\node [] at (17.5,20.25) {$u(x, y, z) = C$};
+			\end{circuitikz}
+		}
+		\label{fig:28_1}
+	\end{figure}
+	
+	
+	
+	
+	\newpage
+	\begin{librarybox}
+		37.	Дифференциальные операции второго порядка. Оператор Лапласа
+	\end{librarybox}
+	\begin{table}[H]
+		\centering
+		\caption{Дифференциальные операции второго порядка}
+		\renewcommand{\arraystretch}{1.4}
+		\begin{tabular}{|c|c|c|c|}
+			\hline
+			& $\Grad u$ & $\Div \vec{A}$ & $\Rot \vec{A}$ \\
+			\hline
+			$\Grad u$ & -- & $\vec{B}$ (5) & -- \\
+			\hline
+			$ \Div \vec{A}$ & $ \Delta u$ (3) & -- & $0$ (2)\\
+			\hline
+			$\Rot \vec{A}$ & $\vec{0}$ (1) & -- & $\vec{B} - \Delta \vec{A}$ (4) \\
+			\hline
+		\end{tabular}
+	\end{table}	
+	\begin{enumerate}
+		\item $\Rot (\Grad u) = \Rot (\nabla \cdot u) = [\nabla, \nabla u] = [\nabla, \nabla] u = \boxed{\vec{0}}$
+		\item $\Div(\Rot \vec{A}) = \Div [\nabla, \vec{A}] = (\nabla, [\nabla, \vec{A}]) = (\nabla, \nabla, \vec{A}) = \boxed{0}$
+		\item $\Div (\Grad u) = \Div( \nabla \cdot u) = (\nabla, \nabla u) = (\nabla, \nabla)u = \boxed{\Delta u}$
+		\item $\Rot (\Rot \vec{A}) = \Rot([\nabla, \vec{A}]) = [\nabla, [\nabla, \vec{A}]] = \nabla(\nabla, \vec{A}) - (\nabla, \nabla)\vec{A} = \Grad (\Div \vec{A}) - \Delta \vec{A} = \boxed{\vec{B} - \Delta \vec{A}}$
+		\item $\Grad (\Div \vec{A}) = \boxed{\vec{B}}$
+	\end{enumerate}
+	
+	\textbf{Оператор Лапласа (Лапласиан)}
+	\[\Delta =\ppp{}{x} + \ppp{}{y} + \ppp{}{z}\]
+	
+	\newpage
+	\begin{librarybox}
+		38.	Потенциальное поле. Теорема о вычислении потенциала. Критерий потенциальности поля
+	\end{librarybox}
+	\textit{Определение:}
+	Векторное поле $\vec{A}(M)$, определенное в области $\Omega \in \mathbb{R}^3$, $M \in \Omega$ называется \textbf{потенциальным}, если его можно представить, как:
+	\[\boxed{\vec{A} = \Grad u},\]
+	где $u$ -- некое скалярное поле, называемое потенциальным полю $\vec{A}$.
+	
+	Чтобы поле $\vec{A}(M) = P(x, y, z) \vec{i} + Q(x, y, z) \vec{j} + R(x, y, z) \vec{k}$ было потенциальным, необходимо и достаточно:
+	\[\Rot \vec{A} = \vec{0}\] 
+	
+	\textbf{Необходимое и достаточное условие}
+	\[P\, dx + Q \, dy + R \, dz = du = \pp{u}{x} dx + \pp{u}{y} \, dy + \pp{u}{z}\, dz\]
+	\[\begin{aligned}
+		P = \pp{u}{x} && Q = \pp{u}{y} && R = \pp{u}{z}
+	\end{aligned}\]
+	
+	\textbf{Доказательство}
+	
+	\textit{Необходимость:} 
+	\[\vec{A} = \Grad u = \Rot \vec{A} = \Rot (\Grad u) = \vec{0}\]
+	
+	\textit{Достаточность:} 
+	Пусть $\Rot \vec{A} = \vec{0}$, тогда:
+	\[\Rot \vec{A} = \begin{vmatrix}
+		\vec{i} & \vec{j} & \vec{k} \\
+		\pp{}{x} & \pp{}{y} & \pp{}{z} \\
+		P & Q & R
+	\end{vmatrix} = [\nabla, \vec{A}] \Rightarrow \pp{R}{y} = \pp{Q}{z}, \pp{R}{x} = \pp{P}{z}, \pp{Q}{x} = \pp{R}{y}\]
+	
+	\newpage
+	\begin{librarybox}
+		39.	Понятие циркуляции векторного поля, ее физический смысл. Инвариантный вид формулы Стокса
+	\end{librarybox}
+	\textit{Определение:} Пусть векторное поле $\vec{A}$ определенно в области $\Omega \in \mathbb{R}^3$, а $C$ -- кусочно-гладкая кривая, целиком лежащая в области $\Omega$, тогда:
+	\[\boxed{\oint_C (\vec{A}, d\vec{r})}\]
+	-- называется \textbf{циркуляцией} $\vec{A}$ по контуру $C$.\\
+	
+	\textbf{Физический смысл:}
+	
+	Если $\vec{A} = P(x, y, z) \vec{i} + Q(x, y, z) \vec{j} + R(x, y, z) \vec{k}$ -- сила, под действием которой движется по контуру $C$, то циркуляция вектора $\vec{A}(M)$  -- работа силы.\\
+	
+	\textbf{Формула Стокса}
+	\begin{multline*}
+		\oint_C (\vec{A}, d\vec{r}) = \int_C P\, dx + Q \, dy + R \, dz = \iint_S \begin{vmatrix}
+			\cos \alpha & \cos \beta & \cos \gamma \\
+			\pp{}{x} & \pp{}{y} & \pp{}{z} \\
+			P & Q & R
+		\end{vmatrix} = \\
+		= \iint_S (\vec{n}, \nabla, \vec{A})\, dS = \iint_S (\vec{n}, [\nabla, \vec{A}])\, dS = \iint_S (\vec{n}, \Rot \vec{A})\, dS \Rightarrow \\
+		\Rightarrow \boxed{\oint_C (\vec{A}, d\vec{r}) = \iint_S (\vec{n}, \Rot \vec{A})\, dS} \text{ -- Инвариантная формула Стокса}
+	\end{multline*}
+	
+	\newpage
+	\begin{librarybox}
+		40.	Соленоидальное поле. Теорема о вычислении векторного потенциала. Критерий соленоидальности поля
+	\end{librarybox}
+	\textit{Определение:} Векторное поле $\vec{A}(M)$ в области $\Omega \in \mathbb{R}^3$ называется \textbf{соленоидальным}, если его можно представить как:
+	\[\vec{A} = \Rot \vec{B},\]
+	где $\vec{B}$ -- некоторое векторное поле.
+	
+	\textbf{Доказательство:} Пусть $\vec{B}$ и $\vec{C}$ -- два векторных потенциала вихревого поля $\vec{A}$, тогда:
+	\[-\begin{cases}
+		\vec{A} = \Rot \vec{B} \\ \vec{A} = \Rot \vec{C}
+	\end{cases}
+	\Rightarrow
+	\vec{0} = \Rot (\vec{B} - \vec{C}) \rightarrow \vec{B} - \vec{C} \text{ -- потенциальное поле по опр.}\]
+	
+	\textit{Определение:} Чтобы $\vec{A}(M)$ непрерывно-дифференцируемая в области $\Omega \in \mathbb{R}^3$, была \textbf{соленоидальным} необходимо и достаточно:
+	\[\Div \vec{B} = 0\]
+	
+	\textbf{Доказательство:} 
+	\textit{Необходимость:}
+	$\vec{A} = \Rot \vec{B} \to \Div \vec{A} = \Div (\Rot \vec{B}) = \vec{0}$ 
+	
+	\textit{Достаточность:}
+	Пусть $\Div \vec{A} = \vec{0}$ и $\vec{A} = \Rot \vec{B}$.
+	\[\begin{aligned}
+		 \vec{B} = B_1 \vec{i} + B_2 \vec{j} + B_3 \vec{k} && && \vec{A} = P \vec{i} + Q \vec{j} + R \vec{k} = \begin{vmatrix}
+			\vec{i} & \vec{j} & \vec{k} \\
+			\pp{}{x} & \pp{}{y} & \pp{}{z} \\
+			B_1 & B_2 & B_3
+		\end{vmatrix} \Rightarrow 
+	\end{aligned}\]
+	\[\begin{cases}
+		\pp{B_3}{y} - \pp{B_2}{z} = P \\
+		\pp{B_1}{z} - \pp{B_3}{x} = Q \\
+		\pp{B_2}{x} - \pp{B_1}{y} = R \\
+	\end{cases} \to \text{ЧР по $B_3$} \to \begin{cases}
+	B_2 = - \int P\, dz  + f(x, y) \\
+	B_1 = \int Q\, dz + g(x, y)
+\end{cases} \to\]
+	\[\to \text{ЧР $g(x, y) = 0$} \to - \int \pp{P}{x} \, dz + \pp{f}{x} - \int \pp{Q}{y} \, dz = R \Rightarrow \]
+	\[\Rightarrow R = \pp{f}{x} - \int \Big(\pp{P}{x} - \pp{Q}{y}\Big)\, dz \Rightarrow \boxed{\vec{B} = \int Q\, dz \, \vec{i} + (- \int P\, dz + \int R\, dx)\vec{j} + 0 \vec{k}}\]
+	
+	\newpage
+	\begin{librarybox}
+		41.	Закон сохранения интенсивности векторной трубки для соленоидального поля
+	\end{librarybox}
+	\textit{Определение:} Поток соленоидального поля через любое сечение векторной трубки не меняется.
+	\[\iint_{S_2} (\vec{n}, \vec{A})\, dS = \iint_{S_1} (\vec{n}, \vec{A})\, dS\]
+	
+	\textbf{Доказательство:}
+	\[\oiint_S (\vec{n}, \vec{A})\, dS = 
+	\iint_{S_1} (\vec{n}, \vec{A})\, dS + 
+	\iint_{S_2} (\vec{n}, \vec{A})\, dS + 
+	\iint_{S_\text{бок}} (\vec{n}_\delta, \underbrace{\vec{A}}_0)\, dS = 
+	0\]
+	
+	\begin{figure}[H]
+		\centering
+		\resizebox{0.6\textwidth}{!}{%
+			\begin{circuitikz}
+				\tikzstyle{every node}=[font=\normalsize]
+				\draw [ fill={rgb,255:red,207; green,207; blue,207} , rotate around={-75:(28,22.5)}] (28,22.5) ellipse (1.25cm and 0.75cm);
+				\draw [ fill={rgb,255:red,207; green,207; blue,207} , rotate around={50:(24.25,20.25)}] (24.25,20.25) ellipse (0.25cm and 0.5cm);
+				\draw [short] (23.86,20.57) .. controls (25,22.25) and (25.25,22.75) .. (27.66,23.7);
+				\draw [short] (24.59,19.89) .. controls (25.75,20.75) and (26,21.25) .. (28.25,21.28);
+				\draw [->, >=Stealth] (25.25,22.5) -- (26.75,23.5)node[pos=1.2, fill=white]{$\vec{A}$};
+				\draw [->, >=Stealth] (28,22.5) -- (29.75,23)node[pos=1.2, fill=white]{$\vec{n}$};
+				\draw [->, >=Stealth] (24.25,20.25) -- (25.25,21.25)node[pos=1.2, fill=white]{$\vec{n}_1$};
+				\draw [->, >=Stealth] (24.25,20.25) -- (23.25,19.25)node[pos=1.2, fill=white, pos=1.2]{$-\vec{n}_1$};
+				\node at (24.25,20.25) [circ] {};
+				\node at (28,22.5) [circ] {};
+				\node at (25.25,22.5) [circ] {};
+				\draw [->, >=Stealth] (25.25,22.5) -- (24.25,23.75)node[pos=0.5, fill=white]{$\vec{n}_\text{бок}$};
+				\node [] at (26.5,20.75) {$S_\text{пов}$};
+				\node [] at (28,22) {$S_2$};
+				\node [] at (24.75,19.5) {$S_1$};
+			\end{circuitikz}
+		}
+		\label{fig:my_label}
+	\end{figure}
+	
+	\newpage
+	\begin{librarybox}
+		42.	Лапласово векторное поле. Теорема о лапласовом поле
+	\end{librarybox}
+	Непрерывно дифференцируемое в области $\Omega \in \mathbb{R}^3$ векторное поле $\vec{A}(M)$ называется Лапласовым если одновременно выполняется:
+	\[\begin{aligned}
+		\Div \vec{A} = 0, && \Rot \vec{A} = 0, && \vec{A} = \Grad u,
+	\end{aligned}\]
+	где $u$ -- скалярный потенциал.
+	\[\Div (\Grad u) = 0 \quad\Rightarrow\quad \Delta u = 0\]
+	
+	\textbf{Уравнение Лапласа}
+	\[\boxed{\ppp{u}{x} + \ppp{u}{y} + \ppp{u}{z} = 0} \]
+	
+	\textbf{Теорема о Лапласовом поле}
+	
+	Если поле $\vec{A}(M)$, $M \in T$ является непрерывным лапласовым полем и имеет на поверхности $S$ $(\vec{n}, \vec{A})\big|_{S} = 0$, то  внутри $T$: \[\vec{A} = 0\]
+	
+	\textbf{Доказательство:} 
+	Пусть $\vec{A} = \Grad u$ в синодальном поле:
+	\[\oiint_S (u \vec{A}, \vec{n})\, dS \stackrel{\text{Г-О}}{=} \iint (\Div u\vec{A})\, dV \oeq \iiint |\vec{A}|^2 \, dV = 0 \Rightarrow |\vec{A}|^2 = 0 \Rightarrow \boxed{\vec{A} = 0}\] 
+	\begin{multline*}
+		\Div (u\vec{A}) = (\nabla, u \vec{A}) = (\nabla, \stackrel{\downarrow}{u} \vec{A}) + (\nabla, u \stackrel{\downarrow}{\vec{A}}) = (\nabla, \stackrel{\downarrow}{u} \vec{A}) + u(\nabla, \stackrel{\downarrow}{\vec{A}}) =\\= (\Grad u, \vec{A}) + u \underbrace{\Div \vec{A}}_0 = (\vec{A}, \vec{A}) = |\vec{A}|^2
+	\end{multline*}
+	
+	\newpage
+	\begin{librarybox}
+		43.	Основная теорема векторного анализа
+	\end{librarybox}
+	\textit{Определение:} Для любого непрерывно-дифференцируемого векторного поля $\vec{A}$, $M \in \mathbb{R}^3$ можно представить в виде суммы:
+	\[\vec{A} = \vec{A}_\text{пот} + \vec{A}_\text{сол},\]
+	где $\vec{A}_\text{пот}$ -- потенциальное поле, $\vec{A}_\text{сол}$ -- соленоидальное поле.\\
+	
+	\textbf{Доказательство:} Пусть $\vec{A} = \vec{A}_1 + \vec{A}_2$, где $\vec{A}_1$ -- потенциальное $\vec{A} = \Grad \varphi$. Докажем, что $\vec{A}_2$ соленоидальное.
+	\[\Div \vec{A}_2 = 0 \Rightarrow \Div (\vec{A} - \vec{A}_1) = 0 \Rightarrow \Div \vec{A} - \Div \vec{A}_1 = 0 \Rightarrow \Div \vec{A} = \Delta \varphi\]
+	
+	\newpage
+	\begin{librarybox}
+		44. Обратная задача векторного анализа
+	\end{librarybox}
+	
+	Пусть дано скалярное поле $u(M)$ и векторное поле $\vec{B}(M)$. Нужно найти векторное поле $\vec{A}(M)$ удовлетворяющие соотношения:
+	\[\begin{cases}
+		\Div \vec{A} = u \\
+		\Rot \vec{A} = \vec{B}
+	\end{cases}\]
+	
+	Поскольку $\Div \Rot \vec{A} = 0$, то задача будет корректно поставлена, если $\Div \vec{B} = 0$.\\
+	
+	\textbf{Решение:}
+	Согласно основной теореме векторного анализа будем искать поле $\vec{A}$ в виде суммы потенциального $\vec{A}_1$ и соленоидального $\vec{A}_2$ полей. Тогда эти поля должны удовлетворять системе уравнений:
+	\begin{multicols}{2}
+		\noindent
+		\begin{equation} \label{eq:44_1}
+			\begin{cases}
+				\Rot \vec{A}_1 = 0 \\ 
+				\Div \vec{A}_1 = u
+			\end{cases}
+		\end{equation}
+		\columnbreak
+		\noindent
+		\begin{equation} \label{eq:44_2}
+			\begin{cases}
+				\Rot \vec{A}_2 = \vec{B} \\ 
+				\Div \vec{A}_2 = 0
+			\end{cases}
+		\end{equation}
+	\end{multicols}
+	
+	Решение \cref{eq:44_1}: Представим $\vec{A}_1 = \Grad \varphi$. Подставляя это соотношение в \cref{eq:44_2}, приходим к $\Div \Grad \varphi = u \Rightarrow \boxed{\Delta \varphi = u}$ это уравнение Пуассона имеет решение всегда. Так как $\Div \vec{B} = 0$, то уравнение \cref{eq:44_1}
+	
+%	\[\begin{aligned}
+%		\begin{cases}
+%			\Rot \vec{A}_1 = 0 \\ 
+%			\Div \vec{A}_1 = u
+%		\end{cases} &&
+%		\begin{cases}
+%			\Rot \vec{A}_2 = \vec{B} \\ 
+%			\Div \vec{A}_2 = 0
+%		\end{cases}
+%	\end{aligned}\]
+	
+	
+	
+	
+	\newpage
+	\begin{librarybox}
+		45. Определение криволинейных координат в пространстве. Координатные линии и координатные поверхности. Теорема о локальном базисе в криволинейных координатах
+	\end{librarybox}
+	\textit{Определение:} Пусть $x, y, z$ -- прямоугольные декартовы координаты в $\mathbb{R}^3$. Упорядоченная тройка числе $q_1, q_2, q_3$ называется \textbf{криволинейными координатами} в $\mathbb{R}^3$, если каждой тройке $q_1, q_2, q_3$ ставится в соответствие точка $(x, y, z) \in \mathbb{R}^3$ с помощью функций:
+	\[\begin{aligned}
+		x = x(q_1, q_2, q_3), && y = y(q_1, q_2, q_3), && z = z(q_1, q_2, q_3), 
+	\end{aligned}\] 
+	удовлетворяющих условиям:
+	\begin{enumerate}
+		\item Функции $x(q_1, q_2, q_3)$, $y(q_1, q_2, q_3)$, $z(q_1, q_2, q_3)$ -- дважды непрерывно-дифференцируемы в $\mathbb{R}^3$;
+		\item Якобиан: $\displaystyle J = \frac{\mathcal{D}(x, y, z)}{\mathcal{D}(q_1, q_2, q_3)} \neq 0.$
+	\end{enumerate} 
+	
+	\textbf{Теорема о локальном базисе:}
+	Пусть в $\mathbb{R}^3$ задана криволинейные координаты $q_1, q_2, q_3$. Тогда радиус-вектор точки $M(x, y, z) \in \mathbb{R}^3$ имеет вид:
+	\[\vec{r}(q_1, q_2, q_3) = x(q_1, q_2, q_3) \vec{i} + y(q_1, q_2, q_3) \vec{j} + z(q_1, q_2, q_3) \vec{k}\]
+	
+	При этом система векторов образует \textbf{локальный базис} в данной точке: $\displaystyle \boxed{\vec{e}_i = \pp{\vec{r}}{q_i}},$
+	
+	А система векторов образует \textbf{локальный взаимный базис}: $\displaystyle \boxed{\vec{e}^k = \nabla q_k = \Grad q_k}$
+	
+	
+	\textbf{Доказательство:} Чтобы $\pp{\vec{r}}{q_i}$ образовывал базис, необходимо проверить компланарность:
+	\[(\vec{e}_1, \vec{e}_2, \vec{e}_3) = \left(\pp{\vec{r}}{q_1}, \pp{\vec{r}}{q_2}, \pp{\vec{r}}{q_3}\right) = \begin{vmatrix}
+		\pp{x}{q_1} & \pp{y}{q_1} & \pp{z}{q_1} \\
+		\pp{x}{q_2} & \pp{y}{q_2} & \pp{z}{q_2} \\
+		\pp{x}{q_3} & \pp{y}{q_3} & \pp{z}{q_3}
+	\end{vmatrix} = \frac{\mathcal{D}(x, y, z)}{\mathcal{D}(q_1, q_2, q_3)} \neq 0\]
+	
+	Проверим, что базис $\vec{e}^{\,k} = \Grad q_k$ является взаимным к базису $\vec{e}_i$.
+	\[(\vec{e}^k, \vec{e}_i) = (\nabla q_k, \pp{\vec{r}}{q_i}) = \pp{q_k}{x} \cdot \pp{x}{q_i} + \pp{q_k}{y} \cdot \pp{y}{q_i} + \pp{q_k}{z} \cdot \pp{z}{q_i} = \pp{q_k}{q_i}=\delta_{ik}\]
+	
+	Поскольку $q_k = q_k(x, y, z)$ -- сложная функция, то:
+	\[q_k = q_k\big(x(q_1, q_2, q_3), y(q_1, q_2, q_3), z(q_1, q_2, q_3)\big)\]
+	
+	\textbf{Смысл локального базиса}
+	В декартовых координатах базис одинаков в любой точке и переносится параллельно. В криволинейных — меняется в каждой точке.
+	
+%	\include{parameters}
+\end{document}
