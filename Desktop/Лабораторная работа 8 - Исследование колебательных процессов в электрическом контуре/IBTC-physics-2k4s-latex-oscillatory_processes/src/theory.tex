@@ -1,0 +1,18 @@
+\section{Теоретическая часть}
+
+В качестве осциллятора используется электрический контур, состоящий из последовательно соединенных катушки индуктивности \(L\), конденсатора \(C\), резистора \(R\) и внешнего источника ЭДС (\cref{fig:1}). 
+\begin{figure}[H]
+	\centering
+	\resizebox{0.4\textwidth}{!}{%
+		\begin{tikzpicture}
+			% Paths, nodes and wires:
+			\draw (7, 4) to[european resistor, l={$R$}] (9, 4);
+			\draw (9, 2) to[american inductor, l={$L$}] (7, 2);
+			\draw (7, 4) to[capacitor, l_={$C$}, label distance=0.08cm] (7, 2);
+			\draw (9, 2) to[rmeter, l_={$\Epsilon (t)$}, label distance=0.08cm] (9, 4);
+		\end{tikzpicture}
+	}%
+	\caption{Схема}
+	\label{fig:1}
+\end{figure}
+
